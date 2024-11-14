@@ -1,0 +1,37 @@
+<div class="services-page">
+    <div class="container py-5">
+      <h1 class="text-center mb-5">Our Services</h1>
+      
+      <!-- Services Grid -->
+      <div class="row g-4">
+        <div class="col-md-6 col-lg-4" *ngFor="let service of services">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">{{service.title}}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{service.price}}</h6>
+              <p class="card-text">{{service.description}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Pet Hotel Section -->
+      <div class="pet-hotel-section mt-5">
+        <h2>Premium Cat Boarding</h2>
+        <div class="row g-4 mt-3">
+          <div class="col-md-4" *ngFor="let i of [1,2,3]">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">Room Type {{i}}</h5>
+                <ul class="list-unstyled">
+                  <li><i class="fas fa-check"></i> Basic facilities</li>
+                  <li><i class="fas fa-check"></i> Daily cleaning</li>
+                  <li><i class="fas fa-check"></i> Regular monitoring</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

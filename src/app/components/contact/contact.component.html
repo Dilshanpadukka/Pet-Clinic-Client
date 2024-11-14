@@ -1,0 +1,103 @@
+<div class="contact-page">
+    <div class="container py-5">
+      <div class="row">
+        <!-- Contact Information -->
+        <div class="col-md-4">
+          <div class="card h-100">
+            <div class="card-body">
+              <h5 class="card-title">Contact Information</h5>
+              <div class="contact-info">
+                <div class="mb-3">
+                  <i class="fas fa-map-marker-alt"></i>
+                  <p>{{contactInfo.address}}</p>
+                </div>
+                <div class="mb-3">
+                  <i class="fas fa-phone"></i>
+                  <p>
+                    General: {{contactInfo.phone}}<br>
+                    Emergency: {{contactInfo.emergency}}
+                  </p>
+                </div>
+                <div class="mb-3">
+                  <i class="fas fa-envelope"></i>
+                  <p>{{contactInfo.email}}</p>
+                </div>
+                <div class="mb-3">
+                  <i class="fas fa-clock"></i>
+                  <p>{{contactInfo.hours}}</p>
+                </div>
+              </div>
+  
+              <div class="social-links mt-4">
+                <a href="#" class="btn btn-outline-primary me-2">
+                  <i class="fab fa-facebook"></i>
+                </a>
+                <a href="#" class="btn btn-outline-primary me-2">
+                  <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="btn btn-outline-primary me-2">
+                  <i class="fab fa-whatsapp"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Contact Form -->
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Send us a Message</h5>
+              <form [formGroup]="contactForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                  <label class="form-label">Name</label>
+                  <input type="text" class="form-control" formControlName="name">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" formControlName="email">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Subject</label>
+                  <input type="text" class="form-control" formControlName="subject">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Message</label>
+                  <textarea class="form-control" rows="5" formControlName="message"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" [disabled]="!contactForm.valid">
+                  Send Message
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Map -->
+      <div class="row mt-5">
+        <div class="col-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Location</h5>
+              <div class="map-container">
+                <!-- Add Google Maps iframe or integration here -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.3875279493777!2d79.90491717499471!3d6.7224778932735045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae247a4c04ae595%3A0x4060e3527ce41470!2siCET%20-%20Institute%20of%20Computer%20Engineering%20Technology!5e0!3m2!1sen!2slk!4v1731610625608!5m2!1sen!2slk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-6">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Location</h5>
+              <div class="map-container">
+                <!-- Add Google Maps iframe or integration here -->
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3962.3875279493777!2d79.90491717499471!3d6.7224778932735045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae247a4c04ae595%3A0x4060e3527ce41470!2siCET%20-%20Institute%20of%20Computer%20Engineering%20Technology!5e0!3m2!1sen!2slk!4v1731610625608!5m2!1sen!2slk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

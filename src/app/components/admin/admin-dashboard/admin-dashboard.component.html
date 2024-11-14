@@ -1,0 +1,194 @@
+<!-- admin-dashboard.component.html -->
+<div class="admin-dashboard">
+    <div class="container-fluid py-4">
+      <!-- Statistics Cards -->
+      <div class="row g-3 mb-4">
+        <div class="col-md-3">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h6 class="card-subtitle mb-2 text-muted">Total Orders</h6>
+                  <h3 class="card-title mb-0">{{statistics.totalOrders}}</h3>
+                  <small class="text-muted">{{statistics.pendingOrders}} pending</small>
+                </div>
+                <div class="stat-icon">
+                  <i class="fas fa-shopping-cart"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-md-3">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h6 class="card-subtitle mb-2 text-muted">Products</h6>
+                  <h3 class="card-title mb-0">{{statistics.totalProducts}}</h3>
+                  <small class="text-muted">{{statistics.lowStock}} low stock</small>
+                </div>
+                <div class="stat-icon">
+                  <i class="fas fa-box"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-md-3">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h6 class="card-subtitle mb-2 text-muted">Appointments</h6>
+                  <h3 class="card-title mb-0">{{statistics.totalAppointments}}</h3>
+                  <small class="text-muted">{{statistics.todayAppointments}} today</small>
+                </div>
+                <div class="stat-icon">
+                  <i class="fas fa-calendar-check"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <div class="col-md-3">
+          <div class="card stat-card">
+            <div class="card-body">
+              <div class="d-flex justify-content-between align-items-center">
+                <div>
+                  <h6 class="card-subtitle mb-2 text-muted">Revenue</h6>
+                  <h3 class="card-title mb-0">₹{{statistics.totalRevenue}}</h3>
+                  <small class="text-muted">₹{{statistics.monthlyRevenue}} this month</small>
+                </div>
+                <div class="stat-icon">
+                  <i class="fas fa-rupee-sign"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Main Content -->
+      <div class="row">
+        <!-- Recent Orders -->
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Recent Orders</h5>
+              <button class="btn btn-sm btn-outline-primary">View All</button>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Order ID</th>
+                      <th>Customer</th>
+                      <th>Amount</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let order of recentOrders">
+                      <td>#{{order.id}}</td>
+                      <td>{{order.customerName}}</td>
+                      <td>₹{{order.amount}}</td>
+                      <td>
+                        <span class="badge" [ngClass]="{
+                          'bg-warning': order.status === 'pending',
+                          'bg-success': order.status === 'completed',
+                          'bg-danger': order.status === 'cancelled'
+                        }">{{order.status}}</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Today's Appointments -->
+        <div class="col-md-6 mb-4">
+          <div class="card h-100">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Today's Appointments</h5>
+              <button class="btn btn-sm btn-outline-primary">View All</button>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>Pet</th>
+                      <th>Service</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let appointment of recentAppointments">
+                      <td>{{appointment.time}}</td>
+                      <td>{{appointment.petName}}</td>
+                      <td>{{appointment.service}}</td>
+                      <td>
+                        <span class="badge" [ngClass]="{
+                          'bg-warning': appointment.status === 'pending',
+                          'bg-success': appointment.status === 'confirmed',
+                          'bg-info': appointment.status === 'in-progress'
+                        }">{{appointment.status}}</span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Low Stock Products -->
+        <div class="col-md-12">
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">Low Stock Alert</h5>
+              <button class="btn btn-sm btn-outline-primary">Manage Inventory</button>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>Product</th>
+                      <th>Category</th>
+                      <th>Current Stock</th>
+                      <th>Reorder Level</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let product of lowStockProducts">
+                      <td>{{product.name}}</td>
+                      <td>{{product.category}}</td>
+                      <td>
+                        <span class="text-danger">{{product.currentStock}}</span>
+                      </td>
+                      <td>{{product.reorderLevel}}</td>
+                      <td>
+                        <button class="btn btn-sm btn-primary">
+                          Restock
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

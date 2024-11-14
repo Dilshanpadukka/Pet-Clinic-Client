@@ -1,0 +1,116 @@
+<!-- product-management.component.html -->
+<div class="container-fluid py-4">
+    <div class="row">
+      <!-- Product Form -->
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">{{isEditing ? 'Edit' : 'Add'}} Product</h5>
+          </div>
+          <div class="card-body">
+            <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+              <div class="mb-3">
+                <label class="form-label">Product Name</label>
+                <input type="text" class="form-control" formControlName="name">
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Category</label>
+                <select class="form-select" formControlName="category">
+                  <option value="">Select Category</option>
+                  <option value="food">Pet Food</option>
+                  <option value="toys">Toys</option>
+                  <option value="accessories">Accessories</option>
+                  <option value="grooming">Grooming Products</option>
+                </select>
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Description</label>
+                <textarea class="form-control" formControlName="description" rows="3"></textarea>
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Price (₹)</label>
+                <input type="number" class="form-control" formControlName="price">
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Stock Quantity</label>
+                <input type="number" class="form-control" formControlName="stock">
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Reorder Level</label>
+                <input type="number" class="form-control" formControlName="reorderLevel">
+              </div>
+  
+              <div class="mb-3">
+                <label class="form-label">Product Image</label>
+                <input type="file" class="form-control" (change)="onImageSelect($event)">
+              </div>
+  
+              <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary" [disabled]="!productForm.valid">
+                  {{isEditing ? 'Update' : 'Add'}} Product
+                </button>
+                <button type="button" class="btn btn-secondary" (click)="resetForm()" *ngIf="isEditing">
+                  Cancel
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+  
+      <!-- Products List -->
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0">Products List</h5>
+          </div>
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Category</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let product of products">
+                    <td>
+                      <img [src]="product.image" alt="{{product.name}}" class="product-thumbnail">
+                    </td>
+                    <td>{{product.name}}</td>
+                    <td>{{product.category}}</td>
+                    <td>₹{{product.price}}</td>
+                    <td>
+                      <span [class.text-danger]="product.stock <= product.reorderLevel">
+                        {{product.stock}}
+                      </span>
+                    </td>
+                    <td>
+                      <div class="btn-group">
+                        <button class="btn btn-sm btn-primary" (click)="editProduct(product)">
+                          <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="btn btn-sm btn-danger" (click)="deleteProduct(product.id)">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

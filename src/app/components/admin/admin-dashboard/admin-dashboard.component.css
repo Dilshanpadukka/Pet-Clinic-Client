@@ -1,0 +1,48 @@
+
+.admin-dashboard {
+  background-color: #f8f9fa;
+  min-height: 100vh;
+
+  .stat-card {
+    transition: transform 0.2s;
+    
+    &:hover {
+      transform: translateY(-5px);
+    }
+
+    .stat-icon {
+      font-size: 2rem;
+      opacity: 0.3;
+      color: #0d6efd;
+    }
+  }
+
+  .card {
+    border: none;
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+
+    .card-header {
+      background-color: #fff;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    }
+  }
+
+  .table {
+    margin-bottom: 0;
+
+    th {
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.8rem;
+      color: #6c757d;
+    }
+
+    td {
+      vertical-align: middle;
+    }
+  }
+
+  .badge {
+    padding: 0.5em 0.75em;
+  }
+}

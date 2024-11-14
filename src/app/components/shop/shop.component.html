@@ -1,0 +1,45 @@
+<div class="shop-page">
+    <div class="container py-5">
+      <div class="row">
+        <!-- Category Sidebar -->
+        <div class="col-md-3">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">Categories</h5>
+              <div class="list-group">
+                <button class="list-group-item list-group-item-action"
+                        [class.active]="selectedCategory === 'all'"
+                        (click)="filterProducts('all')">
+                  All Products
+                </button>
+                <button class="list-group-item list-group-item-action"
+                        *ngFor="let category of categories"
+                        [class.active]="selectedCategory === category"
+                        (click)="filterProducts(category)">
+                  {{category}}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+        <!-- Products Grid -->
+        <div class="col-md-9">
+          <div class="row g-4">
+            <div class="col-md-4" *ngFor="let product of products">
+              <div class="card h-100">
+                <img [src]="product.image" class="card-img-top" [alt]="product.name">
+                <div class="card-body">
+                  <h5 class="card-title">{{product.name}}</h5>
+                  <p class="card-text">Rs. {{product.price.toFixed(2)}}</p>
+                  <button class="btn btn-primary" (click)="addToCart(product)">
+                    Add to Cart
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,188 @@
+<!-- <div class="profile-page">
+    <div class="container py-5">
+      <div class="row">
+       
+        <div class="col-md-4">
+          <div class="card mb-4">
+            <div class="card-body">
+              <div class="text-center mb-4">
+                <div class="avatar-placeholder mb-3">
+                  <i class="fas fa-user fa-3x"></i>
+                </div>
+                <h4>{{user?.name}}</h4>
+                <p class="text-muted">Member since {{user?.createdAt | date}}</p>
+              </div>
+  
+              <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                  <label class="form-label">Name</label>
+                  <input type="text" class="form-control" formControlName="name"
+                         [readonly]="!isEditing">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Email</label>
+                  <input type="email" class="form-control" formControlName="email"
+                         [readonly]="!isEditing">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Phone</label>
+                  <input type="tel" class="form-control" formControlName="phone"
+                         [readonly]="!isEditing">
+                </div>
+                <div class="mb-3">
+                  <label class="form-label">Address</label>
+                  <textarea class="form-control" formControlName="address"
+                            [readonly]="!isEditing" rows="3"></textarea>
+                </div>
+  
+                <div class="d-grid gap-2">
+                  <button type="button" class="btn btn-outline-primary"
+                          (click)="toggleEdit()" *ngIf="!isEditing">
+                    Edit Profile
+                  </button>
+                  <button type="submit" class="btn btn-primary"
+                          *ngIf="isEditing" [disabled]="!profileForm.valid">
+                    Save Changes
+                  </button>
+                  <button type="button" class="btn btn-outline-secondary"
+                          *ngIf="isEditing" (click)="toggleEdit()">
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+  
+      
+        <div class="col-md-8">
+          <div class="card">
+            <div class="card-body">
+              <ul class="nav nav-tabs" id="profileTabs" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active" data-bs-toggle="tab" href="#pets">
+                    My Pets
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-bs-toggle="tab" href="#appointments">
+                    Appointments
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-bs-toggle="tab" href="#orders">
+                    Orders
+                  </a>
+                </li>
+              </ul>
+  
+              <div class="tab-content mt-3">
+              
+                <div class="tab-pane fade show active" id="pets">
+                  <div class="row">
+                    <div class="col-12 mb-3">
+                      <button class="btn btn-primary">
+                        <i class="fas fa-plus"></i> Add New Pet
+                      </button>
+                    </div>
+                    
+                    <div class="col-md-6 mb-3" *ngFor="let pet of pets">
+                      <div class="card h-100">
+                        <div class="card-body">
+                          <h5 class="card-title">{{pet.name}}</h5>
+                          <p class="mb-1"><strong>Type:</strong> {{pet.type}}</p>
+                          <p class="mb-1"><strong>Breed:</strong> {{pet.breed}}</p>
+                          <p class="mb-1"><strong>Age:</strong> {{pet.age}} years</p>
+                          <button class="btn btn-sm btn-outline-primary mt-2">
+                            Edit Pet
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+          
+                <div class="tab-pane fade" id="appointments">
+                  <div class="table-responsive">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th>Date</th>
+                          <th>Time</th>
+                          <th>Pet</th>
+                          <th>Service</th>
+                          <th>Status</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let appointment of appointments">
+                          <td>{{appointment.date | date}}</td>
+                          <td>{{appointment.time}}</td>
+                          <td>{{appointment.petName}}</td>
+                          <td>{{appointment.service}}</td>
+                          <td>
+                            <span class="badge" [ngClass]="{
+                              'bg-warning': appointment.status === 'pending',
+                              'bg-success': appointment.status === 'confirmed',
+                              'bg-info': appointment.status === 'completed',
+                              'bg-danger': appointment.status === 'cancelled'
+                            }">{{appointment.status}}</span>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+  
+               
+                <div class="tab-pane fade" id="orders">
+                  <div class="accordion" id="ordersAccordion">
+                    <div class="accordion-item" *ngFor="let order of orders">
+                      <h2 class="accordion-header">
+                        <button class="accordion-button collapsed" type="button"
+                                data-bs-toggle="collapse"
+                                [attr.data-bs-target]="'#order' + order.id">
+                          Order #{{order.id}} - {{order.date | date}}
+                        </button>
+                      </h2>
+                      <div [id]="'order' + order.id" class="accordion-collapse collapse">
+                        <div class="accordion-body">
+                          <div class="mb-3">
+                            <strong>Status:</strong>
+                            <span class="badge bg-success">{{order.status}}</span>
+                          </div>
+                          <div class="table-responsive">
+                            <table class="table table-sm">
+                              <thead>
+                                <tr>
+                                  <th>Item</th>
+                                  <th>Quantity</th>
+                                  <th>Price</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr *ngFor="let item of order.items">
+                                  <td>{{item.name}}</td>
+                                  <td>{{item.quantity}}</td>
+                                  <td>Rs. {{item.price}}</td>
+                                </tr>
+                                <tr>
+                                  <td colspan="2" class="text-end"><strong>Total:</strong></td>
+                                  <td><strong>Rs. {{order.total}}</strong></td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> -->

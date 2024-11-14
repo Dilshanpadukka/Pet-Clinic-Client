@@ -1,0 +1,83 @@
+<div class="appointment-dashboard">
+    <div class="container py-5">
+      <h2 class="mb-4">Appointment Management</h2>
+  
+      <!-- Filters -->
+      <div class="row mb-4">
+        <div class="col-md-4">
+          <input type="date" class="form-control" 
+                 [(ngModel)]="filterDate" 
+                 (change)="applyFilters()">
+        </div>
+        <div class="col-md-4">
+          <select class="form-select" 
+                  [(ngModel)]="filterStatus" 
+                  (change)="applyFilters()">
+            <option value="all">All Status</option>
+            <option value="pending">Pending</option>
+            <option value="confirmed">Confirmed</option>
+            <option value="completed">Completed</option>
+            <option value="cancelled">Cancelled</option>
+          </select>
+        </div>
+      </div>
+  
+      <!-- Appointments Table -->
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Date & Time</th>
+                  <th>Pet Name</th>
+                  <th>Owner</th>
+                  <th>Type</th>
+                  <th>Status</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let app of filteredAppointments">
+                  <td>{{app.date}} {{app.time}}</td>
+                  <td>{{app.petName}}</td>
+                  <td>
+                    {{app.ownerName}}<br>
+                    <small>{{app.phone}}</small>
+                  </td>
+                  <td>{{app.consultationType}}</td>
+                  <td>
+                    <span class="badge" [ngClass]="{
+                      'bg-warning': app.status === 'pending',
+                      'bg-success': app.status === 'confirmed',
+                      'bg-info': app.status === 'completed',
+                      'bg-danger': app.status === 'cancelled'
+                    }">{{app.status}}</span>
+                  </td>
+                  <td>
+                    <div class="btn-group">
+                      <button class="btn btn-sm btn-success" 
+                              (click)="updateStatus(app.id, 'confirmed')"
+                              *ngIf="app.status === 'pending'">
+                        Confirm
+                      </button>
+                      <button class="btn btn-sm btn-info" 
+                              (click)="updateStatus(app.id, 'completed')"
+                              *ngIf="app.status === 'confirmed'">
+                        Complete
+                      </button>
+                      <button class="btn btn-sm btn-danger" 
+                              (click)="updateStatus(app.id, 'cancelled')"
+                              *ngIf="app.status !== 'cancelled'">
+                        Cancel
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
